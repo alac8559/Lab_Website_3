@@ -21,18 +21,16 @@
 							 <!-- TODO: Populate our select with player options
 							 			For each player, set a new option with a value matching the palyer's id, 
 							 			but will display the player's name-->
-
-						
+	
 
 						<%
 						if(players){
-							var option = '';
-							players.forEach(function(item) {
-								if (player_actual){
-									'<option selected =\"'+player_actual.id+'\" disabled>' +player_actual.name + '</option>';
-								}
-								option += '<option value=\"' + item.id + '\">' + item.name + '</option>';
-							}); %>
+							var option = '';	
+							var selected = '';
+							for(i = 0; i < players.length; i++){
+							    option += '<option value=' + players[i].id + '>' + players[i].name + '</option>';
+							};%>
+							
 							<%- option %>
 					      <% } %>
 
@@ -54,15 +52,15 @@
 								 		    You'll need to calculate here the player's average rushing, receiving, and passing yards.-->
 						
 						<% if (player_actual){
-							var year = player_actual.year;
-							var major = player_actual.major;
-							var gamesplayed = 12;
-							var passing = player_actual.passing_yards;
-							var avg_passing = parseInt(passing)/parseInt("12");
-							var rushing = player_actual.rushing_yards;
-							var avg_rushing = parseInt(rushing)/parseInt("12");
-							var receiving = player_actual.receiving_yards;
-							var avg_receiving = parseInt(receiving)/parseInt("12");
+							var year = player_actual[0].year;
+							var major = player_actual[0].major;
+							var gamesplayed = games_player[0].count;
+							var passing = player_actual[0].passing_yards;
+							var avg_passing = parseInt(passing)/parseInt(gamesplayed);
+							var rushing = player_actual[0].rushing_yards;
+							var avg_rushing = parseInt(rushing)/parseInt(gamesplayed);
+							var receiving = player_actual[0].receiving_yards;
+							var avg_receiving = parseInt(receiving)/parseInt(gamesplayed);
 
 						} %>
 

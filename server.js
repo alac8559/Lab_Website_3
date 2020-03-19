@@ -215,7 +215,7 @@ app.get('/team_stats', function(req, res) {
 });
 
 app.get('/player_info', function(req, res) {
-	var query = 'SELECT * FROM football_players';
+	var query = 'SELECT * FROM football_players;';
 	db.any(query)
 	.then(function(results) {
 		res.render('pages/player_info', {
@@ -239,7 +239,7 @@ app.get('/player_info/post', function(req, res) {
 	var my_tab = 'SELECT * FROM football_players;';
 	var player_id = req.query.player_choice;
 	var actual_player = 'SELECT * FROM football_players WHERE id = '+ player_id +';'
-	var games_played = 'SELECT count(*) FROM football_games WHERE ' + player_id + ' = any(my_tab);';
+	var games_played = 'SELECT count(*) FROM football_games WHERE ' + player_id + ' = ANY(my_tab);';
 	db.task('my_player_info', task=> {
 		return task.batch([
 			task.any(my_tab), task.any(actual_player), task.any(games_played)
