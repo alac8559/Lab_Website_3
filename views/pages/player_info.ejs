@@ -10,7 +10,7 @@
 				if (!player_actual){
 				  var image_src = '../resources/img/helmet.jpg';
 				}else{
-					var image_src = '../resources/img/player'+player_actual.id+'.jpg';
+					var image_src = '../resources/img/player'+player_actual[0].id+'.jpg';
 				
 			         } %>
 				 <img class="card-img-top" id="player_img" src= "<%- image_src %>" alt="Image of Football Player">
@@ -51,10 +51,11 @@
 								 			If a player has been selected, fill in their information in each of the fields below.
 								 		    You'll need to calculate here the player's average rushing, receiving, and passing yards.-->
 						
-						<% if (player_actual){
+						<% 
+						if (player_actual){
 							var year = player_actual[0].year;
 							var major = player_actual[0].major;
-							var gamesplayed = games_player[0].count;
+							var gamesplayed = games_played[0].count;
 							var passing = player_actual[0].passing_yards;
 							var avg_passing = parseInt(passing)/parseInt(gamesplayed);
 							var rushing = player_actual[0].rushing_yards;

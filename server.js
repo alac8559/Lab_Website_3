@@ -221,16 +221,18 @@ app.get('/player_info', function(req, res) {
 		res.render('pages/player_info', {
 			my_title: "Player Info", 
 			players: results,
-			player_actual: null
+			player_actual: null,
+			games_played: ''
 		})
 	})
 
 	.catch(function(err) {
 		console.log('error', err);
-		res.render('pages/team_stats', {
+		res.render('pages/player_info', {
 			my_title: "Player Info", 
 			players: '',
-			player_actual: ''
+			player_actual: '',
+			games_played: ''
 		})
 	});
 });
@@ -238,8 +240,8 @@ app.get('/player_info', function(req, res) {
 app.get('/player_info/post', function(req, res) {
 	var my_tab = 'SELECT * FROM football_players;';
 	var player_id = req.query.player_choice;
-	var actual_player = 'SELECT * FROM football_players WHERE id = '+ player_id +';'
-	var games_played = 'SELECT count(*) FROM football_games WHERE ' + player_id + ' = ANY(my_tab);';
+	var actual_player = 'SELECT * FROM football_players WHERE id = '+ player_id +';';
+	var games_played = 'SELECT count(*) FROM football_games WHERE ' + player_id + ' = ANY(players);';
 	db.task('my_player_info', task=> {
 		return task.batch([
 			task.any(my_tab), task.any(actual_player), task.any(games_played)
@@ -256,7 +258,7 @@ app.get('/player_info/post', function(req, res) {
 
 	.catch(err=> {
 		console.log('error', err);
-		res.render('pages/team_stats', {
+		res.render('pages/player_info', {
 			my_title: "Player Info", 
 			players: '',
 			player_actual: '',
